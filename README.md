@@ -19,6 +19,6 @@ Sistema de navegación por vídeos
 * Grabaciones profesionales realizadas fuera de horario público.
 
 #Implementación
-*Web App en HTML y JavaScript.
-*Vídeos almacenados en YouTube.
-*Conexión NFC.
+* Web App en HTML y JavaScript.
+* Vídeos almacenados en YouTube.
+* Conexión NFC.
