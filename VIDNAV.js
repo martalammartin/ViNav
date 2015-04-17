@@ -29,7 +29,7 @@ function main()
 	function generateVideos(list_of_videos)
 	{
 		//Consigo el elemento video
-		var videoContainer = document.getElementById("VideoContainer") //TO DO: Apuntar
+		var videoContainer = document.getElementById("VideoContainer");
 		for(int i= 0; i<list_of_videos.lenght(); i++)
 		{
 			var videoTag = createElement("video");
