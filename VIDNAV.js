@@ -53,8 +53,9 @@ function main()
 	}
 	
 	function startTrayectory(){
+		actual_video = 1;
 		var urls = constructWay(initWaypoint, endWaypoint);
 		var videos = downloadVideos(urls);
-		var generateVideos (videos);
+		var generateVideos(videos);
 	}
 } 
