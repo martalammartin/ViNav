@@ -19,3 +19,4 @@ Sistema de navegación por vídeos
 #Implementación
 *Web App en HTML y JavaScript
 *Vídeos almacenados en YouTube
+*Conexión NFC
