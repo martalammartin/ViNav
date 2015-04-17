@@ -1,0 +1,10 @@
+{
+"Ciudad Universitaria": 
+	{
+		"Principe Pio": ["www.example1.com", "www.example2.com", "www.example3.com"]
+	},
+"Principe Pio":
+	{
+		"Ciudad Universitaria": ["www.example4.com", "www.example5.com", "www.example6.com"]
+	}
+}
