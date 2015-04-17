@@ -1,8 +1,6 @@
 
 function main()
-{
-	//{initWaypoint: example, endWaypoint: example, videoURL: example}	
-	
+{	
 	function constructWay(initWaypoint, endWaypoint) {
 	//List is a collection of the video IDs
 		var urls = $.getJSON("URLS.JSON")[initWaypoint][endWaypoint];
@@ -19,8 +17,9 @@ function main()
 	
 	function downloadVideos(urls){
 		var list_of_videos = [];
-		for (int i = 0; i<url.lenght(); i++)
-			list_of_videos.push($.ajax(list[i]));
+		list_of_videos.forEach (function(video){
+			list_of_videos.push($.ajax(video))
+		});
 		return list_of_videos;
 	}
 	
@@ -30,7 +29,8 @@ function main()
 	{
 		//Consigo el elemento video
 		var videoContainer = document.getElementById("VideoContainer");
-		for(int i= 0; i<list_of_videos.lenght(); i++)
+		var i;
+		for(i= 0; i<list_of_videos.lenght; i++)
 		{
 			var videoTag = createElement("video");
 			videoTag.src = list_of_videos[i];
@@ -45,17 +45,19 @@ function main()
 	
 	function nextVideo()
 	{
-		var actual = document.getElementById("video"+actual_video');
+		var actual = document.getElementById("video"+actual_video);
 		actual.style.display = "none";
-		var actual_video++;
-		var actual = document.getElementById("video"+actual_video');
+		actual_video++;
+		var actual = document.getElementById("video"+actual_video);
 		videoTag.style.display = "block";
 	}
 	
 	function startTrayectory(){
 		actual_video = 1;
+		$("#initWaypoint");//TO DO: apuntar
+		$("#endWaypoint");//TO DO: apuntar
 		var urls = constructWay(initWaypoint, endWaypoint);
-		var videos = downloadVideos(urls);
-		var generateVideos(videos);
+		var videos = downloadVideos(urls); //Comment this if loading from disk
+		generateVideos(videos); //Pasar urls como argumento si cargamos de disco
 	}
 } 
