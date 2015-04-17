@@ -1,9 +1,8 @@
-
-function main()
-{	
-	function constructWay(initWaypoint, endWaypoint) {
-	//List is a collection of the video IDs
-		var urls = $.getJSON("URLS.JSON")[initWaypoint][endWaypoint];
+function constructWay(initWaypoint, endWaypoint, callback) {
+			
+	var JSONdata = $.getJSON("URLS.json", function(data){
+		console.log(data);
+		var urls = data[initWaypoint][endWaypoint];
 		
 		/*var list = [];
 		var anden = consult(initWaypoint.station, endWaypoint.station);
@@ -12,52 +11,60 @@ function main()
 		list.push(consult(anden, initWaypoint.estacion, endWaypoint.estacion)); //Este otro Consult devuelve la URL del video del viaje en metro desde
 																				//la estación initWaypoint.estacion hasta la estacion endWaypoint.estacion
 		list.push(consult(anden, endWaypoint));*/
-		return urls;
-	}
+		callback(urls);
+	});
+}
+
+function downloadVideos(urls){
+	var list_of_videos = [];
+	list_of_videos.forEach (function(video){
+		list_of_videos.push($.ajax(video))
+	});
+	return list_of_videos;
+}
+
+var actual_video = 0;
+
+function generateVideos(list_of_videos)
+{
+	//Consigo el elemento video
+	var videoContainer = document.getElementById("VideoContainer");
 	
-	function downloadVideos(urls){
-		var list_of_videos = [];
-		list_of_videos.forEach (function(video){
-			list_of_videos.push($.ajax(video))
-		});
-		return list_of_videos;
-	}
-	
-	var actual_video = 1;
-	
-	function generateVideos(list_of_videos)
+	for(var i= 0; i<list_of_videos.length; i++)
 	{
-		//Consigo el elemento video
-		var videoContainer = document.getElementById("VideoContainer");
-		var i;
-		for(i= 0; i<list_of_videos.lenght; i++)
+		var videoTag = document.createElement("video");
+		videoTag.src = list_of_videos[i];
+		videoTag.id = "video"+i;
+		videoTag.controls = true;
+		//videoTag.autoplay = true;
+		videoTag.addEventListener('ended', nextVideo,false);
+		console.log(videoTag)
+		if(i!=0)
 		{
-			var videoTag = createElement("video");
-			videoTag.src = list_of_videos[i];
-			videoTag.setAtributte("id","video"+i);
-			if(i!=0)
-			{
-				videoTag.style.display = "none";
-			}
-			$(VideoContainer).append(videoTag);
+			videoTag.style.display = "none";
 		}
+		$(videoContainer).append(videoTag);
 	}
+}
 	
-	function nextVideo()
-	{
-		var actual = document.getElementById("video"+actual_video);
-		actual.style.display = "none";
-		actual_video++;
-		var actual = document.getElementById("video"+actual_video);
-		videoTag.style.display = "block";
-	}
+function nextVideo()
+{
+	var actual = document.getElementById("video"+actual_video);
+	actual.style.display = "none";
+	actual_video++;
+	var actual = document.getElementById("video"+actual_video);
+	actual.style.display = "block";
+}
 	
-	function startTrayectory(){
-		actual_video = 1;
-		$("#initWaypoint");//TO DO: apuntar
-		$("#endWaypoint");//TO DO: apuntar
-		var urls = constructWay(initWaypoint, endWaypoint);
-		var videos = downloadVideos(urls); //Comment this if loading from disk
-		generateVideos(videos); //Pasar urls como argumento si cargamos de disco
-	}
-} 
+function startTrayectory(){
+	actual_video = 0;
+	var init = $("#initWaypoint").html().trim();//TO DO: apuntar
+	console.log(init)
+	var end = $("#endWaypoint").html().trim();//TO DO: apuntar
+	var urls = constructWay(init, end, function(urls){
+		console.log(urls);
+		//var videos = downloadVideos(urls); //Comment this if loading from disk
+		generateVideos(urls); //Pasar urls como argumento si cargamos de disco
+	});
+}
+
