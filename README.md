@@ -1,4 +1,4 @@
-# VIDNAV
+# ViNav
 Sistema de navegación por vídeos
 
 #Experiencia del usuario
@@ -23,4 +23,4 @@ Sistema de navegación por vídeos
 * Conexión NFC.
 
 #Redes sociales
-Consulta nuestra [página web] (https://www.vinav.hol.es), nuestro [Facebook]() y nuestro [Twitter](https://twitter.com/ViNav4all).
+Consulta nuestra [página web] (vinav.hol.es), nuestro [Facebook]() y nuestro [Twitter](https://twitter.com/ViNav4all).
