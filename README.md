@@ -1,4 +1,4 @@
-# ViNav
+# VIDNAV
 Sistema de navegación por vídeos
 
 #Experiencia del usuario
@@ -12,16 +12,13 @@ Sistema de navegación por vídeos
 
 #Posibles mejoras
 * Servidor DASH propio para host de vídeos.
+* Autodisparador de vídeos.
 * Peticiones de usuarios.
 * Sincronización del vídeo con el trayecto de usuario.
 * Reconocimiento de voz.
 * Grabaciones profesionales realizadas fuera de horario público.
-* Múltiples idiomas.
 
 #Implementación
 * Web App en HTML y JavaScript.
 * Vídeos almacenados en YouTube.
 * Conexión NFC.
-
-#Redes sociales
-Consulta nuestra [página web] (vinav.hol.es), nuestro [Facebook]() y nuestro [Twitter](https://twitter.com/ViNav4all).

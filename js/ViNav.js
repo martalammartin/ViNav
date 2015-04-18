@@ -1,6 +1,6 @@
 function constructWay(initWaypoint, endWaypoint, callback) {
 			
-	var JSONdata = $.getJSON("URLS.json", function(data){
+	var JSONdata = $.getJSON("js/URLS.json", function(data){
 		console.log(data);
 		if(!data[initWaypoint]) {
 			return callback(null);
@@ -35,7 +35,7 @@ function generateVideos(list_of_videos)
 	//Consigo el elemento video
 	console.log("starts trouble")
 	var videoContainer = document.getElementById("VideoContainer");
-	
+	<!--videoContainer.setAttribute("hegth", "80%");--> 
 	max = list_of_videos.length
 	
 	for(var i= 0; i<max; i++)
@@ -64,7 +64,7 @@ function nextVideo()
 		actual.style.display = "none";
 		actual_video++;
 		var actual = document.getElementById("video"+actual_video);
-		actual.style.display = "block";
+		actual.style.display = "inline";
 	}
 	
 	console.log(actual_video)
@@ -73,7 +73,7 @@ function nextVideo()
 	{
 		document.getElementById('next').style.display = "none";
 	}
-	document.getElementById('ant').style.display = "block";
+	document.getElementById('ant').style.display = "inline";
 }
 
 function antVideo()
@@ -84,7 +84,7 @@ function antVideo()
 		actual.style.display = "none";
 		actual_video--;
 		var actual = document.getElementById("video"+actual_video);
-		actual.style.display = "block";
+		actual.style.display = "inline";
 	}
 	
 	console.log(actual_video)
@@ -93,25 +93,31 @@ function antVideo()
 	{
 		document.getElementById("ant").style.display = "none";
 	}
-	document.getElementById("next").style.display = "block";
+	document.getElementById("next").style.display = "inline";
 }
 
 function search(){
+	
 	var dvas =  document.getElementById("endWaypoint").value;
 	var dest =  document.getElementById("initWaypoint").value;
-	document.getElementById("next").setAttribute('style', 'display: block');//style.
-	document.getElementById("ant").setAttribute('style', 'display: block')
+	
+	document.getElementById("logo").setAttribute('style', 'display: none');
+	document.getElementById("next").setAttribute('style', 'display: inline');//style.
+	document.getElementById("ant").setAttribute('style', 'display: inline');
 	document.getElementById("endWaypoint").setAttribute('style', 'display: none');
 	document.getElementById("initWaypoint").setAttribute('style', 'display: none');
 	document.getElementById("butF").setAttribute('style', 'display: none');
 	document.getElementById("text1").setAttribute('style', 'display: none');
 	document.getElementById("text2").setAttribute('style', 'display: none');
-	document.getElementById("exit").setAttribute('style', 'display: block');
+	document.getElementById("exit").setAttribute('style', 'display: inline');
 	document.getElementById("geo").setAttribute('style', 'display: none');
-	
 	startTrayectory();
-	//visibility="visible";
+	//visibility="visible"
+	
+	
 }
+
+
 
 function startTrayectory(){
 	actual_video = 0;
@@ -132,15 +138,16 @@ function startTrayectory(){
 
 function endTrayectory(){
 	$("video").remove();
+	document.getElementById("logo").setAttribute('style', 'display: inline');
 	document.getElementById("next").setAttribute('style', 'display: none');
 	document.getElementById("ant").setAttribute('style', 'display: none')
-	document.getElementById("endWaypoint").setAttribute('style', 'display: block');
-	document.getElementById("initWaypoint").setAttribute('style', 'display: block');
-	document.getElementById("butF").setAttribute('style', 'display: block');
-	document.getElementById("text1").setAttribute('style', 'display: block');
-	document.getElementById("text2").setAttribute('style', 'display: block');
+	document.getElementById("endWaypoint").setAttribute('style', 'display: inline');
+	document.getElementById("initWaypoint").setAttribute('style', 'display: inline');
+	document.getElementById("butF").setAttribute('style', 'display: inline');
+	document.getElementById("text1").setAttribute('style', 'display: inline');
+	document.getElementById("text2").setAttribute('style', 'display: inline');
 	document.getElementById("exit").setAttribute('style', 'display: none');
-	document.getElementById("geo").setAttribute('style', 'display: block');}
+	document.getElementById("geo").setAttribute('style', 'display: inline');}
 var lat, lng;
 var lat0=40.45224206075855;//A MODIFICAR, ESTA ES LA LATITUD DE LA PUERTA DE ENTRADA AL METRO
 var lng0=-3.726641827707727;//A MODIFICAR, ESTA ES LA LONGITUD DE LA PUERTA DE ENTRADA AL METRO

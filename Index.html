@@ -1,6 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="es">
+
+
 	<head>
+    	<meta chaset="utf-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title></title>
         <!-- Latest compiled and minified CSS -->
@@ -8,36 +11,158 @@
 
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-        <style> #play {display:none;}</style>
+        <style> 
+             
+           
+<style> 
+ 
+ .inputs {
+    background: #D3D3D3;
+    background: -moz-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #D3D3D3), color-stop(38%, #D9D9D9), color-stop(82%, #E5E5E5), color-stop(100%, #E7E7E7));
+    background: -webkit-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: -o-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: -ms-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    background: linear-gradient(to bottom, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', endColorstr='#e7e7e7', GradientType=0 );
+    display: block;
+    padding: 12px 10px;
+    color: #999;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #FFF;
+    border: 1px solid rgba(16, 103, 133, 0.6);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.5), inset 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    outline: 0;
+    width: 270px;}
+
+		
+		body {
+			display: -webkit-flex;
+			display: flex;
+			flex-flow: row wrap;
+			
+			justify-content: space-between;
+			align-content:center;
+			align-items:center;
+			position:relative;
+			
+			}
+		.myButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+		
+		#play {display:none;}
+        #Buttons{ text-align:center;
+		overflow: hidden;}
+		#VideoContainer{
+		text-align:center;
+		overflow: hidden;
+		}
+		html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+div.parent {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+}
+div.child {
+    width: 100px;
+    margin-left: -50%;
+    margin-top: -50%;
+    border: 1px solid #000;
+}
+ a {text-shadow:0px 1px 0px #ffffff;
+ font-family:arial;
+font-size:15px;
+ }</style>
         
 	</head>
 	
-    <body>
-		<img />
+    <body link="#000099" vlink="#000099" alink="#000099">		
 		
-		<div id = "VideoContainer"> </div>
-		<div id="Buttons">
-		<a id="text1">¿Donde vas?</a>
-		<input type="text" id="endWaypoint"/>
-   		<a id="text2">¿Donde estas?</a>
-        <input type="text" id="initWaypoint"/>
-			
-		<button onclick="search()" id="butF" >OK</button>
-		<button onclick="geolocate()"  id="geo">Encuentrame</button>
-		
-    	<button onclick="nextVideo()" style="display:none" id="next">Siguiente</button>
-		<button onclick="antVideo()"  style="display:none" id="ant" >Anterior</button>
-		<button onclick="endTrayectory()" style="display:none" id="exit">Exit</button>
+        <!--<a href="#" class="myButton">white</a>-->
+
+               
+        <div id="Buttons" style="text-align:center; margin-top:2%; background-image:url(img/FONDOENJPG.jpg); background-repeat:repeat-x; background-position:center; background-size:auto; width:100%; text-align:center; height:100%">
+        <img id="logo" src="img/vinav-logo.png" height="25%"/>
+        <div id="VideoContainer"></div>
+       	<div style="margin-top: 2%">
+		<a id="text1">¿Dónde vas?</a></div>
+        <div style="margin-top: 1%">
+		<input type="text" class="inputs" id="endWaypoint" placeholder="Destino"/></div>
+        <div style="margin-top: 1%">
+   		<a id="text2">¿Dónde estás?</a></div>
+        <div style="margin-top: 1%">
+        <input type="text" class="inputs" id="initWaypoint" placeholder="Origen"/>
+        </div>
+		<div style="margin-top: 1%">
+		<button class="myButton" onclick="search()" id="butF" >OK</button></div>
+        <div style="margin-top: 1%">
+		<button class="myButton" onclick="geolocate()"  id="geo">Encuentrame</button></div>
+		<div style="margin-top: 1%">
+    	
+		<button class="myButton" onclick="antVideo()"  style="display:none" id="ant" >Anterior</button>
+        <button class="myButton" onclick="nextVideo()" style="display:none" id="next">Siguiente</button>
+		<button class="myButton" onclick="endTrayectory()" style="display:none" id="exit">Exit</button></div>
 		</div>
 		
 	</body>
 	
 	
-	<script type="text/javascript" src="zepto.min.js"></script>
+	<script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-	<script type="text/javascript" src="gmaps.js"></script>
+	<script type="text/javascript" src="js/gmaps.js"></script>
 	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
-	<script type="text/javascript" src="VIDNAV.js"></script>
+	<script type="text/javascript" src="js/ViNav.js"></script>
 	
 	
 </html>
