@@ -107,6 +107,7 @@ function search(){
 	document.getElementById("text1").setAttribute('style', 'display: none');
 	document.getElementById("text2").setAttribute('style', 'display: none');
 	document.getElementById("exit").setAttribute('style', 'display: block');
+	document.getElementById("geo").setAttribute('style', 'display: none');
 	
 	startTrayectory();
 	//visibility="visible";
@@ -138,7 +139,8 @@ function endTrayectory(){
 	document.getElementById("butF").setAttribute('style', 'display: block');
 	document.getElementById("text1").setAttribute('style', 'display: block');
 	document.getElementById("text2").setAttribute('style', 'display: block');
-	document.getElementById("exit").setAttribute('style', 'display: none');}
+	document.getElementById("exit").setAttribute('style', 'display: none');
+	document.getElementById("geo").setAttribute('style', 'display: block');}
 var lat, lng;
 var lat0=40.45224206075855;//A MODIFICAR, ESTA ES LA LATITUD DE LA PUERTA DE ENTRADA AL METRO
 var lng0=-3.726641827707727;//A MODIFICAR, ESTA ES LA LONGITUD DE LA PUERTA DE ENTRADA AL METRO
@@ -162,44 +164,38 @@ function distance(lat1, lon1, lat2, lon2) {
 }
 
 function geolocalizar(){
-  GMaps.geolocate({
-	  success: function(position){
+	GMaps.geolocate({
+		success: function(position){
 		 // tabla+="SUCCESS<br>";
-			
 			lat = position.coords.latitude;  
 			lng = position.coords.longitude;
-			
-			var init = document.getElementById("initWaypoint").value = locateCloserEntry(lat, lng);
-			
-	  },
-	  error: function(error) { alert('Fallo geolocalización: '+error.message); },
+		},
+		error: function(error) { 
+		if (error.code == error.PERMISSION_DENIED)
+		{
+			console.log("Stop stalking, GPS");
+		}
+		},
 	  not_supported: function(){ alert("Su navegador no soporta geolocalización"); },
 	  options: { maximumAge: 0 ,
 				enableHighAccuracy: true}
-});
+	});
 }
 
 function locateCloserEntry(lat, lng){
 	return "Ciudad Universitaria";
 }
 
-//Debugging function. Not meant to be used.
-function check_error_d(){
+function geolocate(){
   //console.log("check_error_d")
-  geolocalizar();
-  var difMeters=distance(lat,lng,lat0,lng0);
-  clearTimeout(setMYtimeOUT);
-  if(difMeters<2){
-	  tabla+="<span>MATCHED DIFERENCIA: "+difMeters+"<br>";
-  }
-  else{
-	  
-	  tabla+="<span>LAT:&nbsp" + lat + "&nbspLONG: "+lng+ "DISTANCIA:"+difMeters+"<br>";
-
-  }
-  $("#identificado").html(tabla);
-  setMYtimeOUT= setTimeout(check_error_d, "5000");
+	  geolocalizar();
+	  var difMeters= distance(lat,lng,lat0,lng0);
+	  if(difMeters<200){
+		  var init = document.getElementById("initWaypoint").value = locateCloserEntry(lat, lng);
+		  //tabla+="<span>MATCHED DIFERENCIA: "+difMeters+"<br>";
+	  }
+	  //else{
+		  //tabla+="<span>LAT:&nbsp" + lat + "&nbspLONG: "+lng+ "DISTANCIA:"+difMeters+"<br>";
+	  //}
+	  //$("#identificado").html(tabla);
 }
-
-geolocalizar();
-setMYtimeOUT= setTimeout(check_error_d, "5000");
