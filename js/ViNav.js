@@ -1,3 +1,4 @@
+//Demo function. In final ver, we intend to implement this as a server database query
 function constructWay(initWaypoint, endWaypoint, callback) {
 			
 	var JSONdata = $.getJSON("js/URLS.json", function(data){
@@ -8,6 +9,7 @@ function constructWay(initWaypoint, endWaypoint, callback) {
 		
 		var urls = data[initWaypoint][endWaypoint];
 		
+		//Skeleton of what the real function (implemented on server) would look like
 		/*var list = [];
 		var anden = consult(initWaypoint.station, endWaypoint.station);
 		
@@ -27,15 +29,19 @@ function downloadVideos(urls){
 	return list_of_videos;
 }
 
+//Marks the visible video
 var actual_video = 0;
+
+//Lenght of urls
 var max;
 
+//Dinamically generates videotags and points them to videos
 function generateVideos(list_of_videos)
 {
 	//Consigo el elemento video
-	console.log("starts trouble")
+	//console.log("starts trouble")
 	var videoContainer = document.getElementById("VideoContainer");
-	<!--videoContainer.setAttribute("hegth", "80%");--> 
+	<!--videoContainer.setAttribute("heigth", "80%");--> 
 	max = list_of_videos.length
 	
 	for(var i= 0; i<max; i++)
@@ -46,7 +52,8 @@ function generateVideos(list_of_videos)
 		videoTag.controls = true;
 		//videoTag.autoplay = true;
 		videoTag.addEventListener('ended', nextVideo,false);
-		console.log(videoTag)
+		videoTag.setAttribute('type', "video/mp4")
+		//console.log(videoTag)
 		if(i!=0)
 		{
 			videoTag.style.display = "none";
@@ -58,7 +65,7 @@ function generateVideos(list_of_videos)
 
 function nextVideo()
 {
-	if (actual_video != max - 1)
+	if (actual_video != max - 1) //There's no video after the last video
 	{
 		var actual = document.getElementById("video"+actual_video);
 		actual.style.display = "none";
@@ -67,9 +74,9 @@ function nextVideo()
 		actual.style.display = "inline";
 	}
 	
-	console.log(actual_video)
+	//console.log(actual_video)
 	
-	if(actual_video == max - 1)
+	if(actual_video == max - 1) //Same as above
 	{
 		document.getElementById('next').style.display = "none";
 	}
@@ -78,7 +85,7 @@ function nextVideo()
 
 function antVideo()
 {
-	if (actual_video != 0)
+	if (actual_video != 0) //There's no video before the first video
 	{
 		var actual = document.getElementById("video"+actual_video);
 		actual.style.display = "none";
@@ -87,16 +94,16 @@ function antVideo()
 		actual.style.display = "inline";
 	}
 	
-	console.log(actual_video)
+	//console.log(actual_video)
 	
-	if (actual_video == 0)
+	if (actual_video == 0) //Same as above
 	{
 		document.getElementById("ant").style.display = "none";
 	}
 	document.getElementById("next").style.display = "inline";
 }
 
-function search(){
+function loadVideoScreen(){
 	
 	var dvas =  document.getElementById("endWaypoint").value;
 	var dest =  document.getElementById("initWaypoint").value;
@@ -111,13 +118,9 @@ function search(){
 	document.getElementById("text2").setAttribute('style', 'display: none');
 	document.getElementById("exit").setAttribute('style', 'display: inline');
 	document.getElementById("geo").setAttribute('style', 'display: none');
+	
 	startTrayectory();
-	//visibility="visible"
-	
-	
 }
-
-
 
 function startTrayectory(){
 	actual_video = 0;
@@ -136,6 +139,7 @@ function startTrayectory(){
 	});
 }
 
+//Goes back to main screen
 function endTrayectory(){
 	$("video").remove();
 	document.getElementById("logo").setAttribute('style', 'display: inline');
@@ -147,12 +151,18 @@ function endTrayectory(){
 	document.getElementById("text1").setAttribute('style', 'display: inline');
 	document.getElementById("text2").setAttribute('style', 'display: inline');
 	document.getElementById("exit").setAttribute('style', 'display: none');
-	document.getElementById("geo").setAttribute('style', 'display: inline');}
+	document.getElementById("geo").setAttribute('style', 'display: inline');
+}
+
+/*------------------------------------------
+Geolocalization functions
+------------------------------------------*/
+
 var lat, lng;
+//The following var will not be in the final ver
 var lat0=40.45224206075855;//A MODIFICAR, ESTA ES LA LATITUD DE LA PUERTA DE ENTRADA AL METRO
 var lng0=-3.726641827707727;//A MODIFICAR, ESTA ES LA LONGITUD DE LA PUERTA DE ENTRADA AL METRO
-var setMYtimeOUT = null;
-var tabla=null;	
+
 
 function distance(lat1, lon1, lat2, lon2) {
 	var radlat1 = Math.PI * lat1/180
@@ -167,11 +177,12 @@ function distance(lat1, lon1, lat2, lon2) {
 	dist = dist * 180/Math.PI
 	dist = dist * 60 * 1.1515
 	dist = dist * 1.609344 * 1000;
-	return dist;
+	return dist; //Metres
 }
 
+//Main function of geolocalization
 function geolocalizar(){
-	GMaps.geolocate({
+	GMaps.geolocate({ //From gmaps.js
 		success: function(position){
 		 // tabla+="SUCCESS<br>";
 			lat = position.coords.latitude;  
@@ -189,20 +200,16 @@ function geolocalizar(){
 	});
 }
 
+//DEMO: in final version will be queried to a server
 function locateCloserEntry(lat, lng){
 	return "Ciudad Universitaria";
 }
 
 function geolocate(){
-  //console.log("check_error_d")
-	  geolocalizar();
-	  var difMeters= distance(lat,lng,lat0,lng0);
-	  if(difMeters<200){
-		  var init = document.getElementById("initWaypoint").value = locateCloserEntry(lat, lng);
-		  //tabla+="<span>MATCHED DIFERENCIA: "+difMeters+"<br>";
-	  }
-	  //else{
-		  //tabla+="<span>LAT:&nbsp" + lat + "&nbspLONG: "+lng+ "DISTANCIA:"+difMeters+"<br>";
-	  //}
-	  //$("#identificado").html(tabla);
+	//console.log("check_error_d")
+	geolocalizar();
+	var difMeters= distance(lat,lng,lat0,lng0);
+	if(difMeters<200){
+	  var init = document.getElementById("initWaypoint").value = locateCloserEntry(lat, lng);
+	}
 }
