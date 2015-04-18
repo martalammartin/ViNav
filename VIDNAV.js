@@ -24,13 +24,16 @@ function downloadVideos(urls){
 }
 
 var actual_video = 0;
+var max;
 
 function generateVideos(list_of_videos)
 {
 	//Consigo el elemento video
 	var videoContainer = document.getElementById("VideoContainer");
 	
-	for(var i= 0; i<list_of_videos.length; i++)
+	max = list_of_videos.length
+	
+	for(var i= 0; i<max; i++)
 	{
 		var videoTag = document.createElement("video");
 		videoTag.src = list_of_videos[i];
@@ -43,17 +46,49 @@ function generateVideos(list_of_videos)
 		{
 			videoTag.style.display = "none";
 		}
+		document.getElementById('ant').style.display = "none";
 		$(videoContainer).append(videoTag);
 	}
 }
-	
+
 function nextVideo()
 {
-	var actual = document.getElementById("video"+actual_video);
-	actual.style.display = "none";
-	actual_video++;
-	var actual = document.getElementById("video"+actual_video);
-	actual.style.display = "block";
+	if (actual_video != max - 1)
+	{
+		var actual = document.getElementById("video"+actual_video);
+		actual.style.display = "none";
+		actual_video++;
+		var actual = document.getElementById("video"+actual_video);
+		actual.style.display = "block";
+	}
+	
+	console.log(actual_video)
+	
+	if(actual_video == max - 1)
+	{
+		document.getElementById('next').style.display = "none";
+	}
+	document.getElementById('ant').style.display = "block";
+}
+
+function antVideo()
+{
+	if (actual_video != 0)
+	{
+		var actual = document.getElementById("video"+actual_video);
+		actual.style.display = "none";
+		actual_video--;
+		var actual = document.getElementById("video"+actual_video);
+		actual.style.display = "block";
+	}
+	
+	console.log(actual_video)
+	
+	if (actual_video == 0)
+	{
+		document.getElementById("ant").style.display = "none";
+	}
+	document.getElementById("next").style.display = "block";
 }
 	
 function startTrayectory(){
@@ -68,3 +103,23 @@ function startTrayectory(){
 	});
 }
 
+function endTrayectory(){
+	$("video").remove();
+}
+
+function distance(lat1, lon1, lat2, lon2)
+{
+	var R = 6371000; // metres
+	var pi = 3.14159267
+	var f1 = lat1*(180/pi);
+	var f2 = lat2*(180/pi);
+	var df = (lat2-lat1)*(180/pi);
+	var dl = (lon2-lon1)*(180/pi);
+
+	var a = Math.sin(df/2) * Math.sin(df/2) +
+			Math.cos(f1) * Math.cos(f2) *
+			Math.sin(dl/2) * Math.sin(dl/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+return d = R * c;
+}

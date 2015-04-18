@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title></title>
+        <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <style> #play {display:none;}</style>
+        
+        
+        <script type="text/javascript" src="script.js"></script>
+       	<script>
+        var search = function(){
+			var dvas =  document.getElementById("Dvas").value;
+			var dest =  document.getElementById("Dest").value;
+			document.getElementById("play").setAttribute('style', 'display: block');//style.
+			document.getElementById("Dest").setAttribute('style', 'display: none');
+			document.getElementById("Dvas").setAttribute('style', 'display: none');
+			document.getElementById("butF").setAttribute('style', 'display: none');
+			document.getElementById("text1").setAttribute('style', 'display: none');
+			document.getElementById("text2").setAttribute('style', 'display: none');
+			
+			startTrayectory();
+			//visibility="visible";
+			}
+        </script>
+		
+	</head>
+
+    <body>
+		<img />
+		<ul style="text-align:colunm;"><li style="width:12%; margin: 0 auto;"></li>
+		<li><div id="VideoContainer">
+		<a id="text1">¿Donde vas?</a>
+		<input type="text" id="endWaypoint"/>
+   		<a id="text2">¿Donde estas?</a>
+        <input type="text" id="initWaypoint"/>
+			
+		<button onclick="search()" id="butF" >OK</button>
+    	<button onclick="nextVideo()" id="play">Play</button>
+		</div></li>
+		<li style="width:200px; margin: 0 auto;></li></ul
+		
+		
+		
+   		
+	
+	</body>
+	    
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="VIDNAV.js"></script>
+    
+	
+</html>
