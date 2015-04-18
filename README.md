@@ -16,6 +16,7 @@ Sistema de navegación por vídeos
 * Sincronización del vídeo con el trayecto de usuario.
 * Reconocimiento de voz.
 * Grabaciones profesionales realizadas fuera de horario público.
+* Múltiples idiomas.
 
 #Implementación
 * Web App en HTML y JavaScript.
