@@ -2,6 +2,10 @@ function constructWay(initWaypoint, endWaypoint, callback) {
 			
 	var JSONdata = $.getJSON("URLS.json", function(data){
 		console.log(data);
+		if(!data[initWaypoint]) {
+			return callback(null);
+		}
+		
 		var urls = data[initWaypoint][endWaypoint];
 		
 		/*var list = [];
@@ -102,6 +106,7 @@ function search(){
 	document.getElementById("butF").setAttribute('style', 'display: none');
 	document.getElementById("text1").setAttribute('style', 'display: none');
 	document.getElementById("text2").setAttribute('style', 'display: none');
+	document.getElementById("exit").setAttribute('style', 'display: block');
 	
 	startTrayectory();
 	//visibility="visible";
@@ -114,16 +119,26 @@ function startTrayectory(){
 	var end = $("#endWaypoint").val();
 	console.log(end)
 	var urls = constructWay(init, end, function(urls){
-		console.log(urls);
+		console.log("urls: ", urls);
 		//var videos = downloadVideos(urls); //Comment this if loading from disk
-		generateVideos(urls); //Pasar urls como argumento si cargamos de disco
+		if (urls && urls.length != 0)generateVideos(urls); //Pasar urls como argumento si cargamos de disco
+		else{ 
+			alert("El punto de salida o llegada no existe");
+			endTrayectory();
+		}
 	});
 }
 
 function endTrayectory(){
 	$("video").remove();
-}
-
+	document.getElementById("next").setAttribute('style', 'display: none');
+	document.getElementById("ant").setAttribute('style', 'display: none')
+	document.getElementById("endWaypoint").setAttribute('style', 'display: block');
+	document.getElementById("initWaypoint").setAttribute('style', 'display: block');
+	document.getElementById("butF").setAttribute('style', 'display: block');
+	document.getElementById("text1").setAttribute('style', 'display: block');
+	document.getElementById("text2").setAttribute('style', 'display: block');
+	document.getElementById("exit").setAttribute('style', 'display: none');}
 var lat, lng;
 var lat0=40.45224206075855;//A MODIFICAR, ESTA ES LA LATITUD DE LA PUERTA DE ENTRADA AL METRO
 var lng0=-3.726641827707727;//A MODIFICAR, ESTA ES LA LONGITUD DE LA PUERTA DE ENTRADA AL METRO
