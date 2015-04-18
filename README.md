@@ -1,4 +1,4 @@
-# VIDNAV
+# ViNav
 Sistema de navegación por vídeos
 
 #Experiencia del usuario
