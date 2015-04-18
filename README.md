@@ -2,7 +2,7 @@
 Sistema de navegación por vídeos
 
 #Experiencia del usuario
-//Aquí vídeo
+https://youtu.be/TtVPEBDnDDU
 
 #Puntos de venta
 * Más fácil y cercano que seguir un mapa. Imposible perderse.
