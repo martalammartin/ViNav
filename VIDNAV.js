@@ -29,6 +29,7 @@ var max;
 function generateVideos(list_of_videos)
 {
 	//Consigo el elemento video
+	console.log("starts trouble")
 	var videoContainer = document.getElementById("VideoContainer");
 	
 	max = list_of_videos.length
@@ -90,12 +91,28 @@ function antVideo()
 	}
 	document.getElementById("next").style.display = "block";
 }
+
+function search(){
+	var dvas =  document.getElementById("endWaypoint").value;
+	var dest =  document.getElementById("initWaypoint").value;
+	document.getElementById("next").setAttribute('style', 'display: block');//style.
+	document.getElementById("ant").setAttribute('style', 'display: block')
+	document.getElementById("endWaypoint").setAttribute('style', 'display: none');
+	document.getElementById("initWaypoint").setAttribute('style', 'display: none');
+	document.getElementById("butF").setAttribute('style', 'display: none');
+	document.getElementById("text1").setAttribute('style', 'display: none');
+	document.getElementById("text2").setAttribute('style', 'display: none');
 	
+	startTrayectory();
+	//visibility="visible";
+}
+
 function startTrayectory(){
 	actual_video = 0;
-	var init = $("#initWaypoint").html().trim();//TO DO: apuntar
+	var init = $("#initWaypoint").val();
 	console.log(init)
-	var end = $("#endWaypoint").html().trim();//TO DO: apuntar
+	var end = $("#endWaypoint").val();
+	console.log(end)
 	var urls = constructWay(init, end, function(urls){
 		console.log(urls);
 		//var videos = downloadVideos(urls); //Comment this if loading from disk
@@ -107,19 +124,67 @@ function endTrayectory(){
 	$("video").remove();
 }
 
-function distance(lat1, lon1, lat2, lon2)
-{
-	var R = 6371000; // metres
-	var pi = 3.14159267
-	var f1 = lat1*(180/pi);
-	var f2 = lat2*(180/pi);
-	var df = (lat2-lat1)*(180/pi);
-	var dl = (lon2-lon1)*(180/pi);
+var lat, lng;
+var lat0=40.45224206075855;//A MODIFICAR, ESTA ES LA LATITUD DE LA PUERTA DE ENTRADA AL METRO
+var lng0=-3.726641827707727;//A MODIFICAR, ESTA ES LA LONGITUD DE LA PUERTA DE ENTRADA AL METRO
+var setMYtimeOUT = null;
+var tabla=null;	
 
-	var a = Math.sin(df/2) * Math.sin(df/2) +
-			Math.cos(f1) * Math.cos(f2) *
-			Math.sin(dl/2) * Math.sin(dl/2);
-	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-return d = R * c;
+function distance(lat1, lon1, lat2, lon2) {
+	var radlat1 = Math.PI * lat1/180
+	var radlat2 = Math.PI * lat2/180
+	var radlon1 = Math.PI * lon1/180
+	var radlon2 = Math.PI * lon2/180
+	var theta = lon1-lon2
+	var radtheta = Math.PI * theta/180
+	var dist = Math.sin(radlat1) * Math.sin(radlat2) + 
+			   Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+	dist = Math.acos(dist)
+	dist = dist * 180/Math.PI
+	dist = dist * 60 * 1.1515
+	dist = dist * 1.609344 * 1000;
+	return dist;
 }
+
+function geolocalizar(){
+  GMaps.geolocate({
+	  success: function(position){
+		 // tabla+="SUCCESS<br>";
+			
+			lat = position.coords.latitude;  
+			lng = position.coords.longitude;
+			
+			var init = document.getElementById("initWaypoint").value = locateCloserEntry(lat, lng);
+			
+	  },
+	  error: function(error) { alert('Fallo geolocalización: '+error.message); },
+	  not_supported: function(){ alert("Su navegador no soporta geolocalización"); },
+	  options: { maximumAge: 0 ,
+				enableHighAccuracy: true}
+});
+}
+
+function locateCloserEntry(lat, lng){
+	return "Ciudad Universitaria";
+}
+
+//Debugging function. Not meant to be used.
+function check_error_d(){
+  //console.log("check_error_d")
+  geolocalizar();
+  var difMeters=distance(lat,lng,lat0,lng0);
+  clearTimeout(setMYtimeOUT);
+  if(difMeters<2){
+	  tabla+="<span>MATCHED DIFERENCIA: "+difMeters+"<br>";
+  }
+  else{
+	  
+	  tabla+="<span>LAT:&nbsp" + lat + "&nbspLONG: "+lng+ "DISTANCIA:"+difMeters+"<br>";
+
+  }
+  $("#identificado").html(tabla);
+  setMYtimeOUT= setTimeout(check_error_d, "5000");
+}
+
+geolocalizar();
+setMYtimeOUT= setTimeout(check_error_d, "5000");

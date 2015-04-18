@@ -1,5 +1,7 @@
 {
 "Ciudad Universitaria": {
+		"Coordenadas": [40.45224206075855;//A MODIFICAR, ESTA ES LA LATITUD DE LA PUERTA DE ENTRADA AL METRO
+						-3.726641827707727;],
 		"Principe Pio": ["small.ogv", "small.ogv", "small.ogv"]
 	},
 "Principe Pio":
