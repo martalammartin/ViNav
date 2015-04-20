@@ -164,11 +164,11 @@ function endTrayectory(){
 Geolocalization functions
 ------------------------------------------*/
 
+var localizationRadio = 200; //metros. Permite ajustar la precision de la geolocalizacion
 var lat, lng;
 //The following var will not be in the final ver
 var lat0=40.45224206075855;//A MODIFICAR, ESTA ES LA LATITUD DE LA PUERTA DE ENTRADA AL METRO
 var lng0=-3.726641827707727;//A MODIFICAR, ESTA ES LA LONGITUD DE LA PUERTA DE ENTRADA AL METRO
-
 
 function distance(lat1, lon1, lat2, lon2) {
 	var radlat1 = Math.PI * lat1/180
@@ -187,12 +187,16 @@ function distance(lat1, lon1, lat2, lon2) {
 }
 
 //Main function of geolocalization
-function geolocalizar(){
+function geolocate(){
 	GMaps.geolocate({ //From gmaps.js
 		success: function(position){
 		 // tabla+="SUCCESS<br>";
 			lat = position.coords.latitude;  
 			lng = position.coords.longitude;
+			var difMeters= distance(lat,lng,lat0,lng0);
+			if(difMeters<localizationRadio){
+			var init = document.getElementById("initWaypoint").value = locateCloserEntry(lat, lng);
+			}
 		},
 		error: function(error) { 
 		if (error.code == error.PERMISSION_DENIED)
@@ -209,13 +213,4 @@ function geolocalizar(){
 //DEMO: in final version will be queried to a server
 function locateCloserEntry(lat, lng){
 	return "Ciudad Universitaria";
-}
-
-function geolocate(){
-	//console.log("check_error_d")
-	geolocalizar();
-	var difMeters= distance(lat,lng,lat0,lng0);
-	if(difMeters<200){
-	  var init = document.getElementById("initWaypoint").value = locateCloserEntry(lat, lng);
-	}
 }
