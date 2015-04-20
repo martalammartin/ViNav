@@ -1,4 +1,4 @@
-//Demo function. In final ver, we intend to implement this as a server database query
+﻿//Demo function. In final ver, we intend to implement this as a server database query
 function constructWay(initWaypoint, endWaypoint, callback) {
 			
 	var JSONdata = $.getJSON("js/URLS.json", function(data){
@@ -101,6 +101,12 @@ function antVideo()
 		document.getElementById("ant").style.display = "none";
 	}
 	document.getElementById("next").style.display = "inline";
+}
+
+function changeVideoSpeed(){
+	var actualVideo = document.getElementById("video"+actual_video);
+	actualVideo.playbackRate = (actualVideo.playbackRate == 1) ?2 :1;
+	console.log(actualVideo.playbackRate);
 }
 
 function loadVideoScreen(){
