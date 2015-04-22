@@ -1,23 +1,33 @@
 ﻿//Demo function. In final ver, we intend to implement this as a server database query
 function constructWay(initWaypoint, endWaypoint, callback) {
-			
-	var JSONdata = $.getJSON("js/URLS.json", function(data){
-		console.log(data);
-		if(!data[initWaypoint]) {
-			return callback(null);
-		}
-		
-		var urls = data[initWaypoint][endWaypoint];
-		
-		//Skeleton of what the real function (implemented on server) would look like
-		/*var list = [];
-		var anden = consult(initWaypoint.station, endWaypoint.station);
-		
-		list.push(consult(initWaypoint, anden)); //Consult devuelve la URL del video que empieza en initWaypoint y termina en el anden
-		list.push(consult(anden, initWaypoint.estacion, endWaypoint.estacion)); //Este otro Consult devuelve la URL del video del viaje en metro desde
-																				//la estación initWaypoint.estacion hasta la estacion endWaypoint.estacion
-		list.push(consult(anden, endWaypoint));*/
-		callback(urls);
+	console.log("Construct way invoked")
+	
+	$.ajax({
+		type: 'GET',
+		url: "js/URLS.json",
+		dataType: 'json',
+			success: function( data ) {
+			console.log( "SUCCESS:  " + data );
+
+			if(data[initWaypoint] == undefined) {
+				return callback(null);
+			}
+
+			var urls = data[initWaypoint][endWaypoint];
+
+			/*Skeleton of what the real function (implemented on server) would look like
+			var list = [];
+			var anden = consult(initWaypoint.station, endWaypoint.station);
+
+			list.push(consult(initWaypoint, anden)); //Consult devuelve la URL del video que empieza en initWaypoint y termina en el anden
+			list.push(consult(anden, initWaypoint.estacion, endWaypoint.estacion)); //Este otro Consult devuelve la URL del video del viaje en metro desde
+																					//la estación initWaypoint.estacion hasta la estacion endWaypoint.estacion
+			list.push(consult(anden, endWaypoint));*/
+			return callback(urls);
+		},
+		error: function( data ) {
+		  alert( "ERROR:  " + data );
+    }
 	});
 }
 
@@ -31,18 +41,8 @@ function isInternetDirection(url){
     '(\#[-a-z\d_]*)?$','i') // fragment locater
 	*/
 	var pattern = new RegExp('youtube', 'i') //Yeah, lame. But works for the moment
-	
+	if (pattern.test(url)) console.log(url, "is internet dir")
 	return (pattern.test(url));
-}
-
-
-function downloadVideos(urls){
-	var list_of_videos = [];
-	list_of_videos.forEach (function(video){
-		if (isInternetDirection(video)) list_of_videos.push($.ajax(video));
-		else list_of_videos.push(video);
-	});
-	return list_of_videos;
 }
 
 //Marks the visible video
@@ -51,24 +51,34 @@ var actual_video = 0;
 //Number of videos loaded
 var max;
 
+function downloadVideos(urls){
+	console.log("start download")
+	max = urls.length
+	var list_of_videos = [];
+	urls.forEach (function(video){
+		if (isInternetDirection(video["url"])) list_of_videos.push($.ajax(video["url"]));
+		else list_of_videos.push(video["url"]);
+	});
+	return list_of_videos;
+}
+
 //Dinamically generates videotags and points them to videos
 function generateVideos(list_of_videos)
 {
 	//Consigo el elemento video
-	//console.log("starts trouble")
+	console.log("starts trouble")
 	var videoContainer = document.getElementById("VideoContainer");
 	<!--videoContainer.setAttribute("heigth", "80%");--> 
-	max = list_of_videos.length
 	
 	for(var i= 0; i<max; i++)
 	{
 		var videoTag = document.createElement("video");
-		videoTag.src = list_of_videos[i]["url"];
+		videoTag.src = list_of_videos[i]//["url"];
 		videoTag.id = "video"+i;
 		videoTag.controls = true;
 		//videoTag.autoplay = true;
 		videoTag.addEventListener('ended', nextVideo,false);
-		videoTag.setAttribute('type', "video/"+list_of_videos[i]["format"])
+		//videoTag.setAttribute('type', "video/mp4")
 		//console.log(videoTag)
 		if(i!=0)
 		{
@@ -152,9 +162,11 @@ function startTrayectory(){
 	console.log(end)
 	var urls = constructWay(init, end, function(urls){
 		console.log("urls: ", urls);
-		var videos = downloadVideos(urls); //Comment this if loading from disk
-		if (urls && urls.length != 0)generateVideos(urls); //Pasar urls como argumento si cargamos de disco
-		else{ 
+		urls.forEach(function(url){console.log("Url", url["url"])})
+		if (urls != null && urls.length != 0){
+			var videos = downloadVideos(urls)
+			generateVideos(videos); 
+		}else{ 
 			alert("El punto de salida o llegada no existe");
 			endTrayectory();
 		}
