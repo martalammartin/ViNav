@@ -5,7 +5,7 @@
 	<head>
     	<meta chaset="utf-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title></title>
+		<title>ViNav</title>
         <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -133,26 +133,33 @@ font-size:15px;
 
                
         <div id="Buttons" style="text-align:center; margin-top:2%; background-image:url(img/FONDOENJPG.jpg); background-repeat:repeat-x; background-position:center; background-size:auto; width:100%; text-align:center; height:100%">
-        <img id="logo" src="img/vinav-logo.png" height="25%"/>
-        <div id="VideoContainer"></div>
-       	<div style="margin-top: 2%">
-		<a id="text1">¿Dónde vas?</a></div>
-        <div style="margin-top: 1%">
-		<input type="text" class="inputs" id="endWaypoint" placeholder="Destino"/></div>
-        <div style="margin-top: 1%">
-   		<a id="text2">¿Dónde estás?</a></div>
-        <div style="margin-top: 1%">
-        <input type="text" class="inputs" id="initWaypoint" placeholder="Origen"/>
-        </div>
-		<div style="margin-top: 1%">
-		<button class="myButton" onclick="loadVideoScreen()" id="butF" >OK</button></div>
-        <div style="margin-top: 1%">
-		<button class="myButton" onclick="geolocate()"  id="geo">Encuentrame</button></div>
-		<div style="margin-top: 1%">
-    	
-		<button class="myButton" onclick="antVideo()"  style="display:none" id="ant" >Anterior</button>
-        <button class="myButton" onclick="nextVideo()" style="display:none" id="next">Siguiente</button>
-		<button class="myButton" onclick="endTrayectory()" style="display:none" id="exit">Exit</button></div>
+			<img id="logo" src="img/vinav-logo.png" height="25%"/>
+			<div id="VideoContainer"></div>
+			
+			<div style="margin-top: 1%">
+			<a id="text2">¿Dónde estás?</a></div>
+			
+			<div style="margin-top: 1%">
+			<input type="text" class="inputs" id="initWaypoint" placeholder="Origen"/>
+			</div>
+			
+			<div style="margin-top: 2%">
+			<a id="text1">¿Dónde vas?</a></div>
+			
+			<div style="margin-top: 1%">
+			<input type="text" class="inputs" id="endWaypoint" placeholder="Destino"/></div>
+			
+			<div style="margin-top: 1%">
+			<button class="myButton" onclick="loadVideoScreen()" id="butF" >OK</button></div>
+			
+			<div style="margin-top: 1%">
+			<button class="myButton" onclick="geolocate()"  id="geo">Encuentrame</button></div>
+			
+			<div style="margin-top: 1%">
+			<button class="myButton" onclick="antVideo()"  style="display:none" id="ant" >Anterior</button>
+			<button class="myButton" onclick="nextVideo()" style="display:none" id="next">Siguiente</button>
+			<button class="myButton" onclick="endTrayectory()" style="display:none" id="exit">Exit</button>
+			</div>
 		</div>
 		
 	</body>

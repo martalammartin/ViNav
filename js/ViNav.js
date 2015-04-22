@@ -21,10 +21,26 @@ function constructWay(initWaypoint, endWaypoint, callback) {
 	});
 }
 
+function isInternetDirection(url){
+	/* friggin RegExp
+	var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
+    '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
+    '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
+    '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
+    '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
+    '(\#[-a-z\d_]*)?$','i') // fragment locater
+	*/
+	var pattern = new RegExp('youtube', 'i') //Yeah, lame. But works for the moment
+	
+	return (pattern.test(url));
+}
+
+
 function downloadVideos(urls){
 	var list_of_videos = [];
 	list_of_videos.forEach (function(video){
-		list_of_videos.push($.ajax(video))
+		if (isInternetDirection(video)) list_of_videos.push($.ajax(video));
+		else list_of_videos.push(video);
 	});
 	return list_of_videos;
 }
@@ -32,7 +48,7 @@ function downloadVideos(urls){
 //Marks the visible video
 var actual_video = 0;
 
-//Lenght of urls
+//Number of videos loaded
 var max;
 
 //Dinamically generates videotags and points them to videos
@@ -47,12 +63,12 @@ function generateVideos(list_of_videos)
 	for(var i= 0; i<max; i++)
 	{
 		var videoTag = document.createElement("video");
-		videoTag.src = list_of_videos[i];
+		videoTag.src = list_of_videos[i]["url"];
 		videoTag.id = "video"+i;
 		videoTag.controls = true;
 		//videoTag.autoplay = true;
 		videoTag.addEventListener('ended', nextVideo,false);
-		videoTag.setAttribute('type', "video/mp4")
+		videoTag.setAttribute('type', "video/"+list_of_videos[i]["format"])
 		//console.log(videoTag)
 		if(i!=0)
 		{
@@ -136,7 +152,7 @@ function startTrayectory(){
 	console.log(end)
 	var urls = constructWay(init, end, function(urls){
 		console.log("urls: ", urls);
-		//var videos = downloadVideos(urls); //Comment this if loading from disk
+		var videos = downloadVideos(urls); //Comment this if loading from disk
 		if (urls && urls.length != 0)generateVideos(urls); //Pasar urls como argumento si cargamos de disco
 		else{ 
 			alert("El punto de salida o llegada no existe");

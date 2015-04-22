@@ -1,6 +1,8 @@
 {
 "Ciudad Universitaria": {
-		"Metropolitano": ["video/video_entrada_1.mp4", "video/vid.mp4"]
+		"Metropolitano": [{"url":"video/video_entrada_1.mp4", 'format': "mp4"}, 
+						  {"url":"video/vid.mp4", 'format': "mp4"},
+						  {"url":"https://www.youtube.com/watch?v=Sb5aq5HcS1A", 'format': "mp4"}]
 	},
 "Principe Pio":
 	{
